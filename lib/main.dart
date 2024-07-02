@@ -81,6 +81,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
           //画面上に配置できるものはすべてウィジェット(リスト型を配置)
           children: <Widget>[
+            Image.asset(
+              'assets/images/camera.jpg',
+              width: 200,
+              height: 200,
+              fit: BoxFit.cover,
+            ),
             // Text("Other things/."),
             // Text('Your fortune is:',
             //     style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold)),
