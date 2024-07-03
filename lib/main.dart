@@ -2,42 +2,30 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const MyApp()); //class MyAppを呼び出し
 }
 
 class MyApp extends StatelessWidget {
+  //StatelessWidgetの継承：画面に何かを添付するために必要なすべてのものを取得
   const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    //build：ユーザーインターフェースの構築が行なわれる
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: MyHomePage(),
+      home: MyHomePage(), //ここで実際に子ウィジェットを追加する
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
+  //home の定義
   MyHomePage({super.key});
 
   String _currentFortune = "";
@@ -47,6 +35,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  //MyHomePageのstateを継承
   String _currentFortune = "";
 
   final _fortuneList = [
@@ -64,14 +53,16 @@ class _MyHomePageState extends State<MyHomePage> {
     int fortune = random.nextInt(_fortuneList.length);
     setState(() {
       _currentFortune = _fortuneList[fortune];
-    });
-
-    print(_currentFortune);
+      print("State Change==>: $_currentFortune");
+    }); //setStateで変更が必要な値に対して変更を与える
+    //SetStateの中に入れないと状態の変更は起きない
   }
 
   @override
+  //build : 変更を加えるために再構築が必要なものの再構築のために呼び出される
   Widget build(BuildContext context) {
     //Scaffold: アプリ全体の外見の構造を設定できる基本ウィジェット
+    print("Building the widget");
     return Scaffold(
       appBar: AppBar(), //アプリ上部のバー
       body: Center(
@@ -95,12 +86,15 @@ class _MyHomePageState extends State<MyHomePage> {
             Card(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('${_currentFortune}',
+                //const : 変更できないウィジェット
+                //メモリの削減され、パフォーマンスが向上
+                //スムーズなアニメーションやアプリの応答性に重要
+                child: Text(_currentFortune,
                     style: Theme.of(context).textTheme.titleMedium),
               ),
             ),
             ElevatedButton(
-                onPressed: _randomFortune, child: Text("Get Fortune"))
+                onPressed: _randomFortune, child: const Text("Get Fortune"))
           ],
         ),
       ),
